@@ -6,6 +6,7 @@ on:
     branches:
       - dev
       - release
+      - darwin-arm64
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -93,7 +94,7 @@ jobs:
         shell: bash
         run: make test GOTESTFLAGS="-short"
       - name: Build TinyGo release tarball
-        run: make release -j3
+        run: GOARCH=arm64 make release -j3
       - name: Test stdlib packages
         run: make tinygo-test
       - name: Make release artifact
